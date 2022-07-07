@@ -3,12 +3,13 @@ var gamePattern = [];
 var userPattern = [];
 var gameStarted = false;
 var level = 0;
+let gameScore = 0;
 
 function nxtSeq() {
     userPattern = [];
     level++;
     $("#level-title").text("Level " + level);
-    $("#current-progress").text("X".repeat(level));
+    $("#current-progress").text("⬜".repeat(level));
     let randNum = Math.floor(Math.random() * 4);
     let randBttnColor = bttnColors[randNum];
     gamePattern.push(randBttnColor);
@@ -26,7 +27,7 @@ function chkAns(currPress) {
     if (gamePattern[currPress] === userPattern[currPress]) {
         console.log("success");
         $("#current-progress").text(
-            "O".repeat(currPress + 1) + "X".repeat(level - currPress - 1)
+            "✅".repeat(currPress + 1) + "⬜".repeat(level - currPress - 1)
         );
         if (gamePattern.length === userPattern.length) {
             setTimeout(function () {
@@ -34,6 +35,11 @@ function chkAns(currPress) {
             }, 1000);
         }
     } else {
+        //Game-Over
+        gameScore = level - 1;
+        $("#current-progress").text(
+            "✅".repeat(currPress) + "❌" + "⬜".repeat(level - currPress - 1)
+        );
         setTimeout(function () {
             console.log("wrong");
             playSound("wrong");
@@ -41,37 +47,47 @@ function chkAns(currPress) {
             $("body").addClass("game-over");
             setTimeout(function () {
                 $("body").removeClass("game-over");
-                $("#level-title").text("Game Over, Press Any Key to Restart");
+                $("#level-title").text("Game Over, Press SPACE key to Restart");
             }, 200);
             startOver();
         }, 200);
+
+        // setTimeout(() => {
+        //     handleScore(gameScore);
+        // }, 1000);
     }
 }
 //check click
 $(".btn").on("click", function () {
     //////////////////
-    console.log("game:" + gamePattern);
-    console.log("user:" + userPattern);
+    // console.log("game:" + gamePattern);
+    // console.log("user:" + userPattern);
     //////////////////
-    let chosenColor = this.id;
-    userPattern.push(chosenColor);
-    playSound(chosenColor);
-    playAnim(chosenColor);
-    chkAns(userPattern.length - 1);
+    if (gameStarted) {
+        let chosenColor = this.id;
+        userPattern.push(chosenColor);
+        playSound(chosenColor);
+        playAnim(chosenColor);
+        chkAns(userPattern.length - 1);
+    }
 });
 //check keypress
-$(document).on("keydown", function () {
+$(document).on("keydown", function (event) {
     //////////////////
-    console.log("game:" + gamePattern);
-    console.log("user:" + userPattern);
+    // console.log("game:" + gamePattern);
+    // console.log("user:" + userPattern);
     //////////////////
-    if (!gameStarted) {
+    if (event.key != " ") {
+        $("#level-title").effect("shake", {times:2}, 200 );
+    }
+
+    if (!gameStarted && event.key == " ") {
         $("#level-title").text("Level " + level);
         nxtSeq();
         gameStarted = true;
     }
 });
-$("#touch-screen-button").on("click", ()=>{
+$("#touch-screen-button").on("click", () => {
     if (!gameStarted) {
         $("#level-title").text("Level " + level);
         nxtSeq();
@@ -95,3 +111,14 @@ function playWrongAnim() {
     $("#current-progress").effect("shake");
     $("#level-title").effect("shake");
 }
+//Database
+// function handleScore(score) {
+//     let name = prompt(
+//         "You Scored " + score + " points !",
+//         "Add your name to Leaderboards..."
+//     );
+//     // console.log(name + " " + score);
+//     if(name != "" && name != null){
+
+//     }
+// }
