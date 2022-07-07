@@ -1,22 +1,42 @@
 body {
   text-align: center;
-  background-color: #011F3F;
+  background-color: #011f3f;
 }
 
 #level-title {
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   font-size: 3rem;
-  margin:  5%;
-  color: #FEF2BF;
+  margin: 20px;
+  color: #fef2bf;
+}
+#game-title {
+  font-family: "Press Start 2P", cursive;
+  font-size: 6rem;
+  margin: 20px auto 40px;
+  color: #fef2bf;
+}
+#current-progress {
+  font-family: "Press Start 2P", cursive;
+  font-size: 2rem;
+  margin: 10px;
+  color: #fef2bf;
 }
 
 .container {
   display: block;
   width: 50%;
   margin: auto;
-
 }
-
+#touch-screen-button {
+  font-family: "Press Start 2P", cursive;
+  font-size: 1.5rem;
+  margin-top: 5%;
+  margin-bottom: 400px;
+  background-color: #fef2bf;
+  padding: 10px;
+  width: 200px;
+  margin: auto;
+}
 .btn {
   margin: 25px;
   display: inline-block;
