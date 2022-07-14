@@ -8,7 +8,7 @@ HTML, CSS, JavaScript
 > It is a short-term memory skill game.
 
 ## Live Demo
-Play it [Here.]()
+Play it [Here.](https://the-defaultcube.github.io/WEBD22_SimonGame/)
 
 ## About the Project
 Project description
