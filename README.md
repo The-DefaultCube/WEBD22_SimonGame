@@ -14,7 +14,8 @@ Play it [Here.](https://simon-game-jj12.onrender.com)
 Originally created by Ralph H. Baer and Howard J. Morrison. It basically creates a series of tones and lights and requires a user to repeat the sequence. If the user succeeds, the series becomes progressively longer and more complex. Once the user fails or the time limit runs out, the game is over. 
 
 ## Main Features
-* Responsive UI - Support for both desktop and mobile devices. 
+* Responsive UI - Support for both desktop and mobile devices.
+* Leaderboards Page to view top scorers.
 * UI animations making the gameplay more fun. 
 
 ## TechStack Used
@@ -29,17 +30,25 @@ Originally created by Ralph H. Baer and Howard J. Morrison. It basically creates
  ```terminal
  $ git clone https://github.com/The-DefaultCube/WEBD22_SimonGame/
  ```
-2. Open `index.html` file.
+2. Build Commands
+ ```terminal
+ $ cd v2
+ $ npm install
+ ```
+2. Run Commands
+ ```terminal
+ $ node index.js
+ ```
+## Screenshot
+<img src="screenshots/game_v2.jpg" />
+<img src="screenshots/scores.jpg" />
 
-## 🖼️ Screenshot
-<img src="screenshots/game.jpg" />
-
-## 📩 Contact
+## Contact
 - Contact me : manish0307kumar@gmail.com
 - Project Link : https://github.com/The-DefaultCube/WEBD22_SimonGame/
 
 
-## 🙏 Thanks :)
+## Thanks :)
 ```js
 if ( youLovedProject() ) {
  starIt();
