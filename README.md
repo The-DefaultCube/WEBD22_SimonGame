@@ -40,8 +40,16 @@ Originally created by Ralph H. Baer and Howard J. Morrison. It basically creates
  $ node index.js
  ```
 ## Screenshot
-<img src="screenshots/game_v2.jpg" />
-<img src="screenshots/scores.jpg" />
+<table>
+  <tr>
+    <td><b>Game Page</b></td>
+    <td><b>Leaderboards Page</b></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/game_v2.jpg" ></td>
+    <td><img src="screenshots/scores.jpg" ></td>
+  </tr>
+</table>
 
 ## Contact
 - Contact me : manish0307kumar@gmail.com
