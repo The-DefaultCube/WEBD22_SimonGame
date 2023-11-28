@@ -1,3 +1,6 @@
+import {handleScore} from "./save_score.js"
+
+
 var bttnColors = ["green", "yellow", "blue", "red"];
 var gamePattern = [];
 var userPattern = [];
@@ -57,12 +60,16 @@ function chkAns(currPress) {
         }, 1000);
     }
 }
+
+
+
+
 //check click
 $(".btn").on("click", function () {
-    //////////////////
+    /////////////////////////////////////
     // console.log("game:" + gamePattern);
     // console.log("user:" + userPattern);
-    //////////////////
+    /////////////////////////////////////
     if (gameStarted) {
         let chosenColor = this.id;
         userPattern.push(chosenColor);
@@ -73,10 +80,10 @@ $(".btn").on("click", function () {
 });
 //check keypress
 $(document).on("keydown", function (event) {
-    //////////////////
+    ////////////////////////////////////////
     // console.log("game:" + gamePattern);
     // console.log("user:" + userPattern);
-    //////////////////
+    ////////////////////////////////////////
     if (event.key != " ") {
         $("#level-title").effect("shake", { times: 2 }, 200);
     }
@@ -94,6 +101,11 @@ $("#touch-screen-button").on("click", () => {
         gameStarted = true;
     }
 });
+
+
+
+
+
 //play sound
 function playSound(colr) {
     let audio = new Audio("sounds/" + colr + ".mp3");

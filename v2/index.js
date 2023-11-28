@@ -1,10 +1,14 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const bodyParser = require('body-parser');
 
 
 const app = express();
 app.use(express.static('public'));
+app.use(bodyParser.json());
+
+
 
 const PORT = 3000
 const DB_NAME = 'db/leaderboards.sqlite'
@@ -32,13 +36,32 @@ const initSqlJs = require('sql.js');
 // });
 
 
-// ***********************************************************************
+// ****************************<HOME>*********************************
 
 app.get("/", (req,res)=>{
 	// console.log(req);
 	const filePath = path.join(__dirname, 'index.html');
 	res.sendFile(filePath);
 })
+
+
+// ****************************<HELP>*********************************
+
+app.get("/help", (req,res)=>{
+	// console.log(req);
+	const filePath = path.join(__dirname, 'how_to.html');
+	res.sendFile(filePath);
+})
+
+
+app.post("/save_score", (req, res)=>{
+	console.log('req recieved')
+	const { name, score } = req.body;
+  console.log(`Received data - Name: ${name}, Score: ${score}`);
+
+  res.json({ status: 'Data saved successfully' });
+})
+
 
 app.get("/save", (req,res)=>{
 	// load db and save new entry

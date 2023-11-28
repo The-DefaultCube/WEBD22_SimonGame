@@ -3,16 +3,20 @@ body {
   background-color: #011f3f;
 }
 
+/********************<HOME>*****************************/
 #level-title {
   font-family: "Press Start 2P", cursive;
-  font-size: 3rem;
+  font-size: 1.5rem;
   margin: 20px;
   color: #fef2bf;
 }
 #game-title {
   font-family: "Press Start 2P", cursive;
-  font-size: 6rem;
-  margin: 20px auto 40px;
+  font-size: 3rem;
+  border: 4px dashed;
+  width: 50%;
+  padding: 20px;
+  margin: 50px auto 50px;
   color: #fef2bf;
 }
 #current-progress {
@@ -30,19 +34,19 @@ body {
 #touch-screen-button {
   font-family: "Press Start 2P", cursive;
   font-size: 1.5rem;
-  margin-top: 5%;
-  margin-bottom: 400px;
   background-color: #fef2bf;
   padding: 10px;
-  width: 200px;
+  width: 180px;
   margin: auto;
+  margin-top: 25px;
+  margin-bottom: 25px;
 }
 .btn {
-  margin: 25px;
+  margin: 15px;
   display: inline-block;
-  height: 200px;
-  width: 200px;
-  border: 10px solid black;
+  height: 120px;
+  width: 120px;
+  border: 18px solid #02020A;
   border-radius: 20%;
 }
 
@@ -52,22 +56,59 @@ body {
 }
 
 .red {
-  background-color: red;
+  background-color: #FF1B1C;
 }
 
 .green {
-  background-color: green;
+  background-color: #32DE8A;
 }
 
 .blue {
-  background-color: blue;
+  background-color: #008DD5;
 }
 
 .yellow {
-  background-color: yellow;
+  background-color: #EFCA08;
 }
 
 .pressed {
-  box-shadow: 0 0 20px white;
-  background-color: grey;
+  box-shadow: 0 0 60px #7C98B3;
+  background-color: #7C98B3;
+  transition: box-shadow 0.1s ease, background-color 0.3s ease;
 }
+
+
+/*************************<HELP>********************************/
+
+#how-to {
+  font-family: "Press Start 2P", cursive;
+  font-size: 2rem;
+  width: 80%;
+  margin: 75px auto 50px;
+  color: #fef2ce;
+  border: 4px dashed;
+  padding: 50px;
+}
+
+#how-to-list {
+  font-family: "Press Start 2P", cursive;
+  font-size: 1rem;
+  margin: 60px;
+  text-align: left;
+  color: #fef2bf;
+  margin-bottom: 150px;
+}
+
+#how-to-list > li {
+  margin: 16px;
+  line-height: 20px;
+}
+
+#link {
+  font-family: "Press Start 2P", cursive;
+  font-size: 0.8rem;
+  color: #fef2bf;
+}
+
+
+/*************************<LEADERBOARDS>********************************/
