@@ -28,7 +28,8 @@ export function handleScore(score) {
             return response.json();
         })
         .then(result => {
-            console.log('Data sent successfully:', result);
+            console.log('Data sent successfully');
+            alert("Score Saved :)");
         })
         .catch(error => {
             console.error('Problem with the fetch operation:', error.message);

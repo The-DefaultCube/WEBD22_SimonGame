@@ -77,7 +77,9 @@ body {
   transition: box-shadow 0.1s ease, background-color 0.3s ease;
 }
 
-
+.home-link {
+  margin: 250px;
+}
 /*************************<HELP>********************************/
 
 #how-to {
@@ -112,3 +114,32 @@ body {
 
 
 /*************************<LEADERBOARDS>********************************/
+#leaderboards-table {
+  width: 54%;
+  margin: auto;
+  margin-bottom: 50px;
+}
+
+table {
+  font-family: "Press Start 2P", cursive;
+  font-size: 1rem;
+  color: #fef2bf;
+  border-collapse: collapse;
+  width: 100%;
+  border: 4px dashed #fef2bf; 
+}
+th, td {
+    border: 3px dashed #fef2bf;
+    padding: 16px;
+    text-align: center;
+}
+th {
+    background-color: #08022B; /* Set background color for header cells */
+}
+tr:nth-child(even) {
+    background-color: #003444; /* Set background color for even rows */
+}
+tr:nth-child(odd) {
+    background-color: #04143D; /* Set background color for odd rows */
+}
+

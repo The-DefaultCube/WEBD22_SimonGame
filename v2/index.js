@@ -11,7 +11,10 @@ app.use(bodyParser.json());
 
 
 const PORT = 3000
-const DB_NAME = 'db/leaderboards.sqlite'
+// const DB_NAME = 'db/leaderboards.sqlite'
+const DB_NAME = 'db/lb.sqlite'
+const TABLE_NAME = 'leaderboards'
+
 
 app.listen(PORT, function () {
   console.log(`Server is listening at http://localhost:${PORT}`)
@@ -19,21 +22,27 @@ app.listen(PORT, function () {
 
 
 
-// db*********************************************************************
+// *****************************< DB >***********************************
 
 const initSqlJs = require('sql.js');
 
-// // one time init of db
+if (!fs.existsSync(DB_NAME)){
+		initSqlJs().then(function (SQL) {
+	  console.log("sql.js initialized 🎉");
+	  const db = new SQL.Database();
+	  // create table -- schema
+	  let sqlstr = `CREATE TABLE ${TABLE_NAME} (name char, score int);\
+	  							INSERT INTO ${TABLE_NAME} VALUES ('test', 0);`;
+		db.run(sqlstr);
+	  const data = db.export();
+		const buffer = Buffer.from(data);
+		fs.writeFileSync(DB_NAME, buffer);
+	  console.log('Created new db!')
+	});
+}else{
+	console.log("DB exists !")
+}
 
-// initSqlJs().then(function (SQL) {
-//   console.log("sql.js initialized 🎉");
-//   const db = new SQL.Database();
-
-//   const data = db.export();
-// 	const buffer = Buffer.from(data);
-// 	fs.writeFileSync(DB_NAME, buffer);
-//   console.log('created new db!')
-// });
 
 
 // ****************************<HOME>*********************************
@@ -53,24 +62,26 @@ app.get("/help", (req,res)=>{
 	res.sendFile(filePath);
 })
 
+// *************************<LEADERBOARDS>***************************
 
+app.get("/leaderboards", (req,res)=>{
+	const filePath = path.join(__dirname, 'leaderboards.html');
+	res.sendFile(filePath);
+})
+
+// ****************************<SAVE>*********************************
 app.post("/save_score", (req, res)=>{
 	console.log('req recieved')
 	const { name, score } = req.body;
   console.log(`Received data - Name: ${name}, Score: ${score}`);
 
-  res.json({ status: 'Data saved successfully' });
-})
-
-
-app.get("/save", (req,res)=>{
-	// load db and save new entry
-	const filebuffer = fs.readFileSync(DB_NAME);
+  const filebuffer = fs.readFileSync(DB_NAME);
 	initSqlJs().then(function(SQL){
   // Load the db
   const db = new SQL.Database(filebuffer);
   // create new entry
-  let sqlstr = "INSERT INTO hello VALUES (0, 'Rahul', 10);"
+  let sqlstr = `INSERT INTO ${TABLE_NAME} VALUES ("${name}", ${score} );`
+  // console.log(sqlstr)
   db.run(sqlstr);
 	// save db
   const data = db.export();
@@ -78,55 +89,27 @@ app.get("/save", (req,res)=>{
 	fs.writeFileSync(DB_NAME, buffer);  
 	});
 	console.log('saved score!')
-	res.redirect('/leaderboards');
+  res.json({ status: 'Data saved successfully' });
 })
 
 
-app.get("/leaderboards", (req,res)=>{
+// ****************************<API>***************************************
+
+app.get("/api/leaderboards", (req,res)=>{
 	let scores = '<h1>Name - Score </h1>'
 	const filebuffer = fs.readFileSync(DB_NAME);
 	initSqlJs().then(function(SQL){
 
 	  // Load the db
 	  const db = new SQL.Database(filebuffer);
-	  const result = db.exec("SELECT * FROM hello");
+	  const result = db.exec(`SELECT * FROM ${TABLE_NAME} ORDER BY score DESC`);
 	  const rows = result[0].values;
     rows.forEach(row => {
-      // console.log(row[1], row[2], typeof(row[1]), typeof(row[2]));
-    	scores = scores + "<h2>" + row[1] + " - " + row[2] + "</h2>"
+    	scores = scores + "<h2>" + row[0] + "---" + row[1] + "</h2>";
       });
-    res.send(scores);
+    res.send(result[0]);
 	});
-	console.log(scores)
-	// res.send(`<h2> ${scores} </h2>`);
 })
 
 
 
-app.get("/db", (req,res)=>{
-	// load the db from file
-	const filebuffer = fs.readFileSync(DB_NAME);
-	initSqlJs().then(function(SQL){
-	  // Load the db
-	  const db = new SQL.Database(filebuffer);
-	  console.log(`loaded ${DB_NAME} db ...`)
-	  let sqlstr = "CREATE TABLE hello (idx int, name char, score int); \
-		INSERT INTO hello VALUES (0, 'Hello', 55); \
-		INSERT INTO hello VALUES (1, 'world', 368); \
-		INSERT INTO hello VALUES (2, 'Lie', 38); \
-		INSERT INTO hello VALUES (1, 'won', 8);";
-		db.run(sqlstr);
-		const result = db.exec("SELECT * FROM hello");
-		
-	  console.log(result)
-	  const rows = result[0].values;
-    rows.forEach(row => {
-        console.log(row);
-      });
-    // save
-    const data = db.export();
-		const buffer = Buffer.from(data);
-		fs.writeFileSync(DB_NAME, buffer);
-	});
-	res.send('done!');
-})
